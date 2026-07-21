@@ -114,7 +114,7 @@ TERMS_KY = """
 """.strip()
 
 
-SUPPORTED_LANGUAGES = {"ru", "en", "ky"}
+SUPPORTED_LANGUAGES = {"ru", "ky"}
 
 
 MAIN_LABELS = {
@@ -339,13 +339,6 @@ def language_keyboard() -> InlineKeyboardMarkup:
                 InlineKeyboardButton(
                     text=uniform_button_text("Русский"),
                     callback_data="language:ru",
-                    style="success",
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text=uniform_button_text("English"),
-                    callback_data="language:en",
                     style="success",
                 )
             ],
@@ -787,7 +780,7 @@ def operation_status(status: str, language: str = "ru") -> str:
 
 async def send_language_choice(message: Message) -> None:
     await message.answer(
-        "Выберите язык / Choose your language / Тилди тандаңыз:",
+        "Выберите язык / Тилди тандаңыз:",
         reply_markup=language_keyboard(),
     )
 
@@ -838,38 +831,21 @@ async def show_main_menu(message: Message, user: User) -> None:
         or settings.support_username
         or "не настроен"
     )
-    if language == "en":
+    if language == "ky":
         greeting = (
-            f"Hello, {html.escape(user.first_name)} | "
-            f"<b>{html.escape(settings.service_name)}</b>! 🟢\n\n"
-            "🟢 Deposit | Withdrawal\n\n"
-            "🛬 Deposit — 0%\n"
-            "🛫 Withdrawal — 0%\n"
-            "🌐 Available 24/7\n\n"
-            f"👨‍💼 Operator: {html.escape(operator)}\n\n"
-            "🛡️ Financial control is handled by a dedicated security team."
-        )
-    elif language == "ky":
-        greeting = (
-            f"Салам, {html.escape(user.first_name)} | "
-            f"<b>{html.escape(settings.service_name)}</b>! 🟢\n\n"
-            "🟢 Толуктоо | Чыгаруу\n\n"
-            "🛬 Толуктоо — 0%\n"
-            "🛫 Чыгаруу — 0%\n"
+            f"👋 Салам, {html.escape(user.first_name)}!\n\n"
+            f"<b>{html.escape(settings.service_name)}</b> кызматына кош келиңиз.\n\n"
+            "🟢 Толуктоо | Чыгаруу\n"
             "🌐 24/7 иштейбиз\n\n"
-            f"👨‍💼 Оператор: {html.escape(operator)}\n\n"
-            "🛡️ Каржылык көзөмөлдү өзүнчө коопсуздук бөлүмү камсыздайт."
+            f"👨‍💼 Колдоо: {html.escape(operator)}"
         )
     else:
         greeting = (
-            f"Привет, {html.escape(user.first_name)} | "
-            f"<b>{html.escape(settings.service_name)}</b>! 🟢\n\n"
-            "🟢 Пополнение | Вывод\n\n"
-            "🛬 Пополнение — 0%\n"
-            "🛫 Вывод — 0%\n"
+            f"👋 Здравствуйте, {html.escape(user.first_name)}!\n\n"
+            f"Добро пожаловать в <b>{html.escape(settings.service_name)}</b>.\n\n"
+            "🟢 Пополнение | Вывод\n"
             "🌐 Работаем 24/7\n\n"
-            f"👨‍💼 Оператор: {html.escape(operator)}\n\n"
-            "🛡️ Финансовый контроль обеспечен личным отделом безопасности."
+            f"👨‍💼 Поддержка: {html.escape(operator)}"
         )
     await message.answer(greeting, reply_markup=main_keyboard(language))
 
@@ -2622,7 +2598,7 @@ async def configure_bot_profile(bot: Bot) -> None:
         )
         await bot.set_my_description(
             description=(
-                "💎 MOMENTUM SERVICE\n"
+                "💎 TeamCash\n"
                 "⚡ Быстрое создание заявок на пополнение.\n"
                 "📤 Удобный вывод средств.\n"
                 "🔒 Проверка операций администратором.\n\n"
@@ -2632,7 +2608,7 @@ async def configure_bot_profile(bot: Bot) -> None:
         )
         await bot.set_my_description(
             description=(
-                "💎 MOMENTUM SERVICE\n"
+                "💎 TeamCash\n"
                 "⚡ Fast deposit requests.\n"
                 "📤 Convenient withdrawals.\n"
                 "🔒 Administrator verification.\n\n"

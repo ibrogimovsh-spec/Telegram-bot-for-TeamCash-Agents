@@ -112,7 +112,7 @@ def load_settings() -> Settings:
     platforms = _csv(
         os.getenv(
             "PLATFORMS",
-            "1XBET,MELBET,1WIN,MOSTBET,WINWIN,888STARZ",
+            "MELBET,1XBET",
         )
     )
     if not platforms:
@@ -219,15 +219,15 @@ def load_settings() -> Settings:
             "PAYMENT_TIMEOUT_SECONDS должен быть от 30 до 3600 секунд"
         )
 
-    support = os.getenv("SUPPORT_USERNAME", "").strip()
+    support = os.getenv("SUPPORT_USERNAME", "@MelBetmell").strip()
     if support and not support.startswith("@"):
         support = f"@{support}"
 
     return Settings(
         bot_token=token,
         admin_ids=_parse_admin_ids(os.getenv("ADMIN_IDS", "")),
-        service_name=os.getenv("SERVICE_NAME", "MOMENTUM SERVICE").strip()
-        or "MOMENTUM SERVICE",
+        service_name=os.getenv("SERVICE_NAME", "TeamCash").strip()
+        or "TeamCash",
         support_username=support,
         currency=currency,
         platforms=platforms,
