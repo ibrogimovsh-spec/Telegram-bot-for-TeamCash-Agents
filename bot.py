@@ -337,7 +337,7 @@ def language_keyboard() -> InlineKeyboardMarkup:
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text=uniform_button_text("Русский"),
+                    text=uniform_button_text("🇷🇺 Русский"),
                     callback_data="language:ru",
                     style="success",
                 )
@@ -833,19 +833,17 @@ async def show_main_menu(message: Message, user: User) -> None:
     )
     if language == "ky":
         greeting = (
-            f"👋 Салам, {html.escape(user.first_name)}!\n\n"
-            f"<b>{html.escape(settings.service_name)}</b> кызматына кош келиңиз.\n\n"
-            "🟢 Толуктоо | Чыгаруу\n"
-            "🌐 24/7 иштейбиз\n\n"
-            f"👨‍💼 Колдоо: {html.escape(operator)}"
+            f"👋 <b>TeamCash'ка кош келиңиз!</b>\n\n"
+            "💳 Эсеп толуктоо жана каражат чыгаруу\n"
+            "🕒 24/7 иштейбиз\n\n"
+            f"👨‍💻 Колдоо: {html.escape(operator)}"
         )
     else:
         greeting = (
-            f"👋 Здравствуйте, {html.escape(user.first_name)}!\n\n"
-            f"Добро пожаловать в <b>{html.escape(settings.service_name)}</b>.\n\n"
-            "🟢 Пополнение | Вывод\n"
-            "🌐 Работаем 24/7\n\n"
-            f"👨‍💼 Поддержка: {html.escape(operator)}"
+            f"👋 <b>Добро пожаловать в TeamCash!</b>\n\n"
+            "💳 Пополнение и вывод средств\n"
+            "🕒 Работаем 24/7\n\n"
+            f"👨‍💻 Поддержка: {html.escape(operator)}"
         )
     await message.answer(greeting, reply_markup=main_keyboard(language))
 
