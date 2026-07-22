@@ -244,7 +244,7 @@ def load_settings() -> Settings:
         min_withdraw_minor=min_withdraw,
         max_withdraw_minor=max_withdraw,
         referral_percent_basis_points=_percent_to_basis_points(
-            os.getenv("REFERRAL_PERCENT", "1")
+            os.getenv("REFERRAL_PERCENT", "5")
         ),
         min_referral_withdraw_minor=_money_to_minor(
             os.getenv("MIN_REFERRAL_WITHDRAW", "500"),
