@@ -120,6 +120,11 @@ SUPPORTED_LANGUAGES = {"ru", "ky"}
 MAIN_LABELS = {
     "deposit": {"ru": "Пополнить", "en": "Deposit", "ky": "Толуктоо"},
     "withdrawal": {"ru": "Вывести", "en": "Withdraw", "ky": "Чыгаруу"},
+    "referral": {
+    "ru": "👥 Реферальная система",
+    "en": "👥 Referral System",
+    "ky": "👥 Рефералдык система",
+},
     "profile": {"ru": "Профиль", "en": "Profile", "ky": "Профиль"},
     "terms": {
         "ru": "Соглашение и правила",
@@ -251,6 +256,11 @@ def main_keyboard(language: str) -> ReplyKeyboardMarkup:
                     text=MAIN_LABELS["support"][lang], style="success"
                 ),
             ],
+            [
+    KeyboardButton(
+        text=MAIN_LABELS["referral"][lang], style="success"
+    ),
+],
             [
                 KeyboardButton(
                     text=MAIN_LABELS["language"][lang], style="success"
@@ -2362,7 +2372,56 @@ async def referral_withdrawal(
             "referral",
             user_id=callback.from_user.id,
         )
+@router.message(
+    F.text.in_(
+        {
+            MAIN_LABELS["referral"]["ru"],
+            MAIN_LABELS["referral"]["en"],
+            MAIN_LABELS["referral"]["ky"],
+        }
+    )
+)
+async def referral_handler(message: Message) -> None:
+    if message.from_user is None:
+        return
 
+    profile = await ensure_ready(message)
+    if profile is None:
+        return
+
+    language = profile.language or "ru"
+
+    referral_link = (
+        f"https://t.me/{bot_username}?start={profile.telegram_id}"
+        if bot_username
+        else "—"
+    )
+
+    if language == "ky":
+        text = (
+            "<b>🔥 РЕФЕРАЛДЫК СИСТЕМА</b>\n\n"
+            "Досторуңузду чакырып, алардын ар бир ырасталган "
+            "толуктоосунан <b>5%</b> алыңыз.\n\n"
+            "<b>🎯 Сиздин чакыруу шилтемеңиз:</b>\n"
+            f"{html.escape(referral_link)}\n\n"
+            f"💰 Рефералдык баланс: "
+            f"<b>{format_money(profile.referral_balance_minor)}</b>"
+        )
+    else:
+        text = (
+            "<b>🔥 РЕФЕРАЛЬНАЯ СИСТЕМА</b>\n\n"
+            "Приглашайте друзей и получайте <b>5%</b> "
+            "с каждого подтверждённого пополнения.\n\n"
+            "<b>🎯 Ваша ссылка для приглашения:</b>\n"
+            f"{html.escape(referral_link)}\n\n"
+            f"💰 Реферальный баланс: "
+            f"<b>{format_money(profile.referral_balance_minor)}</b>"
+        )
+
+    await message.answer(
+        text,
+        reply_markup=referral_keyboard(language),
+    )
 
 @router.message(Command("terms"))
 @router.message(
