@@ -1023,16 +1023,15 @@ async def begin_platform_flow(
     if flow == "deposit":
         await state.set_state(DepositFlow.account_id)
 
-    await message.answer(
-        translate(
-            language,
-            "💳 Пополнение 1XBet\n\nВведите ID вашего аккаунта 1XBet:",
-            "💳 1XBet Deposit\n\nEnter your 1XBet account ID:",
-            "💳 1XBet толуктоо\n\n1XBet аккаунтуңуздун ID номерин жазыңыз:",
+        await message.answer(
+            translate(
+                language,
+                "💳 Пополнение 1XBet\n\nВведите ID вашего аккаунта 1XBet:",
+                "💳 1XBet Deposit\n\nEnter your 1XBet account ID:",
+                "💳 1XBet толуктоо\n\n1XBet аккаунтуңуздун ID номерин жазыңыз:",
+            )
         )
-    )
-    return
-        )
+        return
     elif flow == "withdrawal":
         await state.set_state(WithdrawalFlow.platform)
         title = translate(
