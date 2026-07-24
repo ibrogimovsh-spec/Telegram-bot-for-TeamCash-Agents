@@ -134,7 +134,7 @@ def load_settings() -> Settings:
     for configured_name in _csv(
         os.getenv(
             "PAYMENT_METHODS",
-            "MBANK,OMONEY,MEGAPAY,BAKAI_BANK,DEMIR_BANK"
+            "OMONEY,MEGAPAY,DEMIR_BANK"
         )
     ):
         key = _env_key(configured_name)
