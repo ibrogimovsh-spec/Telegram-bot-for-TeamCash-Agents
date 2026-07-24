@@ -1021,6 +1021,7 @@ async def begin_platform_flow(
         )
         return
     if flow == "deposit":
+        await state.update_data(flow="deposit", platform="1XBet")
         await state.set_state(DepositFlow.account_id)
 
         await message.answer(
@@ -1114,7 +1115,7 @@ async def account_selected(
 ) -> None:
     data = await state.get_data()
     flow = str(data.get("flow", "deposit"))
-    platform = "1XBet"
+    platform = str(data.get("platform", "1XBet"))
     database.save_platform_account(user.id, platform, account_id)
     await state.update_data(account_id=account_id)
     language = get_language(user.id)
@@ -1283,13 +1284,8 @@ async def accept_deposit_amount(
             reply_markup=markup,
         )
     else:
-        prefix = (
-            ""
-            if has_managed_cards
-            else "⚠️ <b>QR-код ещё не настроен администратором.</b>\n\n"
-        )
         sent = await message.answer(
-            prefix + caption,
+            caption,
             reply_markup=markup,
         )
     await state.update_data(payment_message_id=sent.message_id)
