@@ -2024,21 +2024,13 @@ async def payment_callback(callback: CallbackQuery, state: FSMContext) -> None:
             "\n\nБанкты ачуу үчүн төмөнкү баскычты басыңыз же QR-кодду скандаңыз.",
         )
     photo: str | FSInputFile | BufferedInputFile | None = None
-
-qr_file = os.getenv(f"PAYMENT_{method.key}_QR", "").strip()
-
-if qr_file:
-    if Path(qr_file).is_file():
-        photo = FSInputFile(qr_file)
-    else:
-        photo = qr_file
-elif method.qr:
-    if Path(method.qr).is_file():
-        photo = FSInputFile(method.qr)
-    else:
-        photo = method.qr
-else:
-    photo = generate_payment_qr(method)
+    if method.qr:
+        if Path(method.qr).is_file():
+            photo = FSInputFile(method.qr)
+        else:
+            photo = method.qr
+    elif method.url:
+        photo = generate_payment_qr(method)
 
     if photo is not None:
         try:
