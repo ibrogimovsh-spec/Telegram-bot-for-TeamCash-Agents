@@ -1113,7 +1113,7 @@ async def account_selected(
     account_id: str,
 ) -> None:
     data = await state.get_data()
-    flow = str(data["flow"])
+    flow = str(data.get("flow", "deposit"))
     platform = "1XBet"
     database.save_platform_account(user.id, platform, account_id)
     await state.update_data(account_id=account_id)
