@@ -2037,6 +2037,7 @@ elif method.qr:
         photo = FSInputFile(method.qr)
     else:
         photo = method.qr
+        
     elif method.url:
         photo = generate_payment_qr(method)
 
