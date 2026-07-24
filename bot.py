@@ -1820,7 +1820,6 @@ async def account_id_message(
     await account_selected(message, state, bot, message.from_user, account_id)
 
 
-@router.message(DepositFlow.account_id)
 @router.message(WithdrawalFlow.account_id)
 @router.message(ReferralFlow.account_id)
 async def account_id_invalid(message: Message) -> None:
