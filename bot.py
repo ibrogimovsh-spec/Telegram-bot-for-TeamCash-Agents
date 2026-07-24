@@ -1020,8 +1020,8 @@ async def begin_platform_flow(
             )
         )
         return
-         if flow == "deposit":
-            await state.set_state(DepositFlow.account_id)
+    if flow == "deposit":
+        await state.set_state(DepositFlow.account_id)
 
     await message.answer(
         translate(
