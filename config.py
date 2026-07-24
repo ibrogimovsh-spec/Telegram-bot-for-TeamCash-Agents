@@ -201,7 +201,7 @@ def load_settings() -> Settings:
         os.getenv("MAX_DEPOSIT", "500000"), "MAX_DEPOSIT"
     )
     min_withdraw = _money_to_minor(
-        os.getenv("MIN_WITHDRAW", "500"), "MIN_WITHDRAW"
+        os.getenv("MIN_WITHDRAW", "150"), "MIN_WITHDRAW"
     )
     max_withdraw = _money_to_minor(
         os.getenv("MAX_WITHDRAW", "500000"), "MAX_WITHDRAW"
@@ -247,7 +247,7 @@ def load_settings() -> Settings:
             os.getenv("REFERRAL_PERCENT", "5")
         ),
         min_referral_withdraw_minor=_money_to_minor(
-            os.getenv("MIN_REFERRAL_WITHDRAW", "500"),
+            os.getenv("MIN_REFERRAL_WITHDRAW", "50"),
             "MIN_REFERRAL_WITHDRAW",
         ),
         deposit_instructions=default_instructions,
